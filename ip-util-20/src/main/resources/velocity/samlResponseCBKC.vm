@@ -1,0 +1,9 @@
+<samlp:Response xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="${responseId}" Version="2.0" IssueInstant="${timestamp}" Destination="${authURL}">
+	<saml:Issuer xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">ALG_IP_10</saml:Issuer>
+	<samlp:Status xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol">
+		<samlp:StatusCode  xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" Value="urn:oasis:names:tc:SAML:2.0:status:Success">
+		</samlp:StatusCode>
+	</samlp:Status>
+	${encryptedAssertion}
+</samlp:Response>
+	

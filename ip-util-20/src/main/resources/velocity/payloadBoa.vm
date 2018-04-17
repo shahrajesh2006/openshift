@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<request>
+    <Locale>en-us</Locale>
+    <partyid>${partyid}</partyid>
+    <OLBID>${OLBID}</OLBID>
+    <clientid>${clientid}</clientid>
+    <pingbackUrl>${pingbackUrl}</pingbackUrl>
+    <returnedurl>${returnedUrl}</returnedurl>
+</request>

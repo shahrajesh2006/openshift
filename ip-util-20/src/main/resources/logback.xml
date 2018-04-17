@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- For assistance related to logback-translator or configuration -->
+<!-- files in general, please contact the logback user mailing list -->
+<!-- at http://www.qos.ch/mailman/listinfo/logback-user -->
+<!-- -->
+<!-- For professional support please see -->
+<!-- http://www.qos.ch/shop/products/professionalSupport -->
+<!-- -->
+
+<!-- logging levels: TRACE, DEBUG, INFO, WARN, ERROR, ALL or OFF -->
+
+<!-- the "debug" flag in configuration element instructs framework to output 
+	configuration status at startup, it does not set logging levels in any way -->
+<configuration debug="true">
+	<!-- Not written in the appender's logging pattern since the log file is already specific to the app, but potentially needed down the road for jmx configuration  -->
+	<contextName>ip-util-20</contextName>
+	<appender name="rolling-ip-util-20"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!--See also http://logback.qos.ch/manual/appenders.html#RollingFileAppender -->
+		<!-- Admins have script that roll these files as well -->
+		<file>logs/ip-util-20.log</file>
+		<!-- Replace context name with account id from LogbackMDCFilter -->
+		<!-- %c{25} shortens the class name to prevent long package names from being written out excessively -->
+		<encoder>
+			<pattern>%date{"MMM dd, yyyy hh:mm:ss.SSS a"} &lt;%p&gt; &lt;%t&gt; &lt;%X{ipAddress}&gt; &lt;%X{accountid}&gt; &lt;%c{25}&gt; - &lt;%m&gt; %n</pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<maxIndex>50</maxIndex>
+			<FileNamePattern>logs/ip-util-20.log.%i</FileNamePattern>
+		</rollingPolicy>
+		<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<MaxFileSize>10MB</MaxFileSize>
+		</triggeringPolicy>
+	</appender>
+	<!-- Default level for all loyalty projects which share this package, i.e. oma-common, services-common, etc. is debug to the rolling appender -->
+	<!-- additivity false prevents duplicate messages in logs since class is in this appender and in root -->
+	<logger name="com.loyalty" level="DEBUG" additivity="false">
+		<appender-ref ref="rolling-ip-util-20" />
+	</logger>
+	<!-- The spring super class writes out excessive debug, so set this to info to prevent them -->
+	<logger name="com.loyalty.oma.web.security.CacheInterceptor" level="INFO" additivity="false">
+		<appender-ref ref="rolling-ip-util-20" />
+	</logger>
+	<!-- This class has excessive debugs for method entry/exits, so use info instead -->
+	<logger name="com.loyalty.service.cart.CartServiceImpl" level="INFO" additivity="false">
+		<appender-ref ref="rolling-ip-util-20" />
+	</logger>
+	<!-- Many Saml exceptions are caught and only logged as debug, so enable debug on this package -->
+	<logger name="org.springframework.security.saml" level="DEBUG" additivity="false">
+		<appender-ref ref="rolling-ip-util-20" />
+	</logger>
+	<!-- Root logging level is info; debug writes out excessively due to core spring classes -->
+	<root level="INFO">
+		<appender-ref ref="rolling-ip-util-20" />
+	</root>
+</configuration>
+<!--
+Sample configuration below can be used in logback-test.xml placed in the classpath so that all apps can just log to console locally
+rather than their individual rolling logs.  That file will be found first and this logback.xml file will be ignored. 
+-->
+<!-- 
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true">
+	<contextName>logback-test</contextName>
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%date{"MMM dd, yyyy hh:mm:ss.SSS a"} - &lt;%p&gt; &lt;%t&gt; &lt;%contextName&gt; &lt;%c&gt; - &lt;%m&gt; %n</pattern>
+		</encoder>
+	</appender>
+	<logger name="com.loyalty" level="DEBUG" additivity="false">
+		<appender-ref ref="console" />
+	</logger>
+	<logger name="com.loyalty.oma.web.security.CacheInterceptor" level="INFO" additivity="false">
+		<appender-ref ref="console" />
+	</logger>
+	<root level="INFO">
+		<appender-ref ref="console" />
+	</root>
+</configuration>
+ -->

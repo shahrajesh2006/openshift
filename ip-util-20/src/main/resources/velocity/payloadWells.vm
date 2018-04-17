@@ -1,0 +1,6 @@
+<RewardsStartupContext xmlns="http://eai-schemas.wellsfargo.com/rewards/samlstartupcontext">
+	<version>1.0</version>
+	<primaryID>$cardNumber</primaryID>
+	<class>$cardClass</class>
+	<secondaryID>$lastFourSsn</secondaryID>$fraudInterdiction
+</RewardsStartupContext>
