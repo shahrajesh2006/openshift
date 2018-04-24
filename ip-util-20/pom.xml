@@ -124,7 +124,7 @@
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
-				<!-- Donot set below value to true since it'l corrupt keystore file that's in the classpath -->
+				Donot set below value to true since it'l corrupt keystore file that's in the classpath 
 				<filtering>false</filtering>
 				<excludes>
 					<exclude>application.properties</exclude>
