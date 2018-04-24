@@ -138,19 +138,10 @@
 			</plugin>
 		</plugins>
 	</build>
-	<distributionManagement>
-		<repository>
-			<uniqueVersion>false</uniqueVersion>
-			<id>alg-releases</id>
-			<name>ALG Releases Repository</name>
-			<url>http://ubuildsvnda01.cuc.com/nexus/content/repositories/releases/</url>
-			<layout>default</layout>
-		</repository>
-		<snapshotRepository>
-			<id>alg-snapshots</id>
-			<name>ALG Snapshot Repository</name>
-			<url>http://ubuildsvnda01.cuc.com/nexus/content/repositories/snapshots/</url>
-			<uniqueVersion>false</uniqueVersion>
-		</snapshotRepository>
-	</distributionManagement>
-</project>
+	<repositories>
+    <repository>
+      <id>codelds</id>
+      <url>https://code.lds.org/nexus/content/groups/main-repo</url>
+    </repository>
+	</repositories>
+  </project>
