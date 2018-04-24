@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+	<Appenders>
+		<!-- File Appender -->
+		<RollingFile name="File" fileName="${sys:logDirectory}/ip-util-20.log"
+			filePattern="${sys:logDirectory}/ip-util-20-%d{MM-dd-yyyy}.log.%i">
+			<PatternLayout>
+				<Pattern>%d{"MMM dd, yyyy hh:mm:ss.SSS a"} &lt;%p&gt; &lt;%t&gt;
+					&lt;%X{ipAddress}&gt; &lt;%X{accountid}&gt; &lt;%c{25}&gt; -
+					&lt;%m&gt; %n</Pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="50" />
+		</RollingFile>
+
+	</Appenders>
+
+	<Loggers>
+		<!-- Log everything in custom package -->
+		<Logger name="com.loyalty" level="debug" additivity="false">
+			<AppenderRef ref="File" />
+		</Logger>
+
+		<!-- Log everything in Spring Boot -->
+		<Logger name="org.springframework.boot" level="info"
+			additivity="false">
+			<AppenderRef ref="File" />
+		</Logger>
+
+		<!-- Log everything in Spring Core -->
+		<Logger name="org.springframework" level="info" additivity="false">
+			<AppenderRef ref="File" />
+		</Logger>
+
+		<Root level="DEBUG">
+			<appender-ref ref="File" level="ERROR" />
+			<appender-ref ref="File" level="DEBUG" />
+		</Root>
+	</Loggers>
+</Configuration>

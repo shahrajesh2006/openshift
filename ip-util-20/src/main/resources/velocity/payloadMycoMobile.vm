@@ -1,0 +1,4 @@
+<RewardsStartupContext xmlns="http://eai-schemas.myco.com/rewards/samlstartupcontext">
+	<version>1.0</version>
+	<primaryID>$accountNumber</primaryID>	
+</RewardsStartupContext>
