@@ -1,4 +1,0 @@
-<RewardsStartupContext xmlns="http://eai-schemas.bankfund.com/rewards/samlstartupcontext">
-	<version>1.0</version>
-	<primaryID>$accountNumber</primaryID>	
-</RewardsStartupContext>
